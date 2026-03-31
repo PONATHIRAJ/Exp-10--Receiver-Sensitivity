@@ -1,86 +1,80 @@
 
-# Receiver-Sensitivity
-# Optical Receiver Sensitivity Analysis
+# Gaussian-Pulse-Propagation
+# Broadening of Gaussian Pulses
 
-## AIM
-Determine the sensitivity of a PIN photodiode-based optical receiver by calculating the minimum received power necessary to achieve a given Q factor. Compare simulation results with those obtained analytically.
+## Objective
+Compare the results predicted by the linear system model of an optical fiber with the results of simulation.
 
 ---
 
 ## Theory
-If only thermal noise is considered, the sensitivity of a PIN photodiode-based receiver is:
+An optical fiber can be represented approximately by a linear system with an impulse response \(h(t)\) or a transfer function \(H(j\omega)\).  
+
+If the optical source has a spectral width much greater than the signal bandwidth (e.g., the source is a directly modulated laser diode) and the operating wavelength is far from the zero-dispersion wavelength, then \(H(j\omega)\) is approximately Gaussian:
+
+<img width="1482" height="1120" alt="image" src="https://github.com/user-attachments/assets/83f63473-b1b3-4afc-ad17-9e9850041cae" />
 
 
+---
 
-<img width="1126" height="718" alt="image" src="https://github.com/user-attachments/assets/22298a91-302d-41e4-b254-86c9b8ec704e" />
+### Output Pulse Broadening
+If a Gaussian pulse is input to a linear system with a Gaussian impulse response, the output is also Gaussian with RMS width:
+
+<img width="340" height="102" alt="image" src="https://github.com/user-attachments/assets/c60d35c1-8a0f-4c50-873d-1314ec59a29f" />
+
+
 
 ---
 
 ## Calculations
-Receiver specifications:
+**System Parameters:**
 
-| Parameter                        | Value                          |
-|----------------------------------|--------------------------------|
-| Operating bit rate               | 2.5 Gb/s                       |
-| Bandwidth                        | 1.65 × bit rate                |
-| Thermal noise spectral density    | X.Y × 10⁻²² A²/Hz              |
-| Desired Q factor                 | 6                              |
-| PIN photodiode responsivity      | 1 A/W                          |
+| Component | Parameter | Value |
+|-----------|-----------|-------|
+| Transmitter – Gaussian Pulse Generator | Operating wavelength | 1550 nm |
+| | Bit rate | 2.5 Gb/s |
+| | FWHM pulse width | 0.5 bit period |
+| | Chirp factor | -6 |
+| Fiber | Type | Corning SMF-28 |
+| | Length | 50 km |
 
-> **Note:** X and Y are the last two digits of your student ID.  
-> Example: If ID ends with **43**, then ST = 4.3 × 10⁻²² A²/Hz.  
+**Required Calculations:**
+<img width="1548" height="298" alt="image" src="https://github.com/user-attachments/assets/b2fb676a-afb0-48ef-914b-309b2ea38a17" />
 
-Using the formulas above, calculate the receiver sensitivity.
-
----
 
 ## Layout
-The simulation layout consists of:
-1. CW laser source  
-2. NRZ modulator  
-3. Optical attenuator  
-4. PIN photodiode with electrical filter  
-
-Settings:
-- Responsivity = 1 A/W (default)  
-- Dark current = 0  
-- ASE noise = off  
-- Thermal noise parameter = editable  
-
-Power meters are placed:
-- At the modulator output  
-- After the attenuator (input to receiver)  
+Place and connect the following components:
+1. **User-defined bit sequence generator** – set to generate a single pulse of the specified width  
+2. **Optical Gaussian pulse generator** – enter the chirp factor as a negative number  
+3. **Optical fiber** – set according to specifications  
+4. **Optical spectrum analyzers** and **optical time domain visualizers** at input and output of fiber  
 
 ---
 
 ## Simulation
-Steps:
-1. Adjust output power to **0 dBm**.  
-2. Set attenuator to **20 dB**.  
-3. Run the simulation.  
-4. Adjust attenuator until **Q factor = 6.00 ± 0.05**.  
+- Set the parameters and run the simulation.  
+- Use the visualizer displays to measure:  
+  - FWHM width of input and output pulses  
+  - FWHM width of optical spectra  
 
 ---
 
-## Report
-Your report should include:
-- Pre-lab calculations (attach handwritten work if applicable).  
-- Screenshots or displays of simulation results:  
-  - Power readings  
-  - BER analyzer output  
-  - Eye diagram  
-- Discussion of differences between analytical and simulation results.  
+## Analysis
+Compare the simulation results with the theoretical calculations and discuss any observed differences.
+
 
 ---
 
 ## BLOCK DIAGRAM
-<img width="634" height="341" alt="image" src="https://github.com/user-attachments/assets/60407744-c2e0-4a70-b962-716880072483" />
+
+<img width="619" height="347" alt="image" src="https://github.com/user-attachments/assets/4823ff15-411d-4f2d-991f-0edfcf092fae" />
 
 ---
-## OUTPUT AND TABULATION
-<img width="1280" height="571" alt="image" src="https://github.com/user-attachments/assets/08534187-030a-446b-859d-fc305ba3a7fd" />
+ Results to Record
+<img width="1448" height="1015" alt="Screenshot 2026-02-05 113211" src="https://github.com/user-attachments/assets/5a7b450e-e6d6-4efc-8c33-791775fdfa8c" />
 
-<img width="1600" height="899" alt="image" src="https://github.com/user-attachments/assets/09da55a3-27bb-4432-97fa-34ca87826e59" />
+## OUTPUT
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/38c5a09a-b876-48e3-b277-946ec646b8b7" />
 
 ## RESULT
-Thus the sensitivity of PIN- photodiode based  optical receiver has been calculated successfully
+Thus the results predicted by the linear system model of an optical fiber has been successfully compared with the results of the simulation and verified
